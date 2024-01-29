@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+
+<body>
+
+  <h1>Functions & validation</h1>
+
+  <form id="form1" action="#" onsubmit="return validateForm(this);">
+    first name: <input type="text" name="firstname"><br>
+    last name: <input type="text" name="lastname"><br>
+    password: <input type="text" name="password"><br>
+
+    <button>Check</button>
+  </form>
+
+  <hr>
+  <div id="message"></div>
+
+
+  <script>
+
+    // add validatePassword function here
+
+
+    const validateForm = (myForm) => {
+
+      var firstname = myForm.firstname.value; // get text of firstname field
+      var lastname = myForm.lastname.value; // get text of lastname field
+      var password = myForm.password.value; // get text of password field
+      // update 'message' DIV with appropriate wording
+      $("#message").html("Button clicked");
+
+      /* Form validation code goes here
+      */
+
+      if (firstname.trim() == "") { //check if the first name is empty
+        $("#message").html("Please enter your first name");
+        
+      } else if (lastname.trim() == "") { //check if the last name is empty
+        $("#message").html("Please enter your last name");
+       
+      } else if (password.trim() == "") { //check if the password is empty
+        $("#message").html("Please enter your password");
+       
+      } else if (password.length < 8) { //check the password's length
+        $("#message").html("Your password is too short <br> Valid passwords should have at least 8 characters, at least one uppercase letter, and at  least one lowercase letter");
+       
+      } else if (password.toLowerCase() == password) { // check if there is lowercase letters in the password
+        $("#message").html("Your password doesn't contain any uppercase letters <br> Valid passwords should have at least 8 characters, at least one uppercase letter, and at  least one lowercase letter");
+        
+      } else if (password.toUpperCase() == password) { // check if there is uppercase letters in the password
+        $("#message").html("Your password doesn't contain any lowercase letters <br> Valid passwords should have at least 8 characters, at least one uppercase letter, and at  least one lowercase letter");
+       
+      } else {
+        $("#message").html("Congratulation! All of your information are valid");
+      }
+      return false; // prevent page reload
+    }
+
+  </script>
+
+</body>
+
+</html>
