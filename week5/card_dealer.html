@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+
+<body>
+
+  <h1>Robo Dealer</h1>
+
+  <button onclick="dealHand();">Deal Hand</button>
+
+  <hr>
+  <div id="card_hand"></div>
+
+  <script>
+
+    /* define Card object and deck of cards here */
+    class Card {
+      constructor(value, suit) {
+        this.value = value;
+        this.suit = suit;
+      }
+    }
+
+    // creat the array cards
+    let value = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
+    let suit = ["spade", "heart", "diamond", "club"];
+    let cards = [];
+    for (let i in value) {
+      for (let j in suit) {
+        cards.push(new Card(value[i], suit[j]))
+      }
+    }
+
+    const dealHand = () => {
+
+      /* code to deal a card hand goes here */
+      // to avoid repeat value, delete the card which is chosen every time, until the length is less than 5
+      let hand = "";
+      for (let k = 0; k < 5; k++) {
+        if (cards.length < 5) {
+          $("#card_hand").html("There are not enough cards in the deck!");
+          break;
+        }
+
+        let num = Math.floor(Math.random() * cards.length);
+        let card = cards[num];
+        hand += card.value + " of " + card.suit + "<br>";
+        cards.splice(num, 1)
+        $("#card_hand").html(hand);
+      }
+
+      // update 'card_hand' DIV with appropriate information
+      //$("#card_hand").html("Button clicked");
+
+      return false; // prevent page reload
+    }
+
+  </script>
+
+</body>
+
+</html>
