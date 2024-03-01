@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The grade</title>
+
+</head>
+
+<body>
+    <header>
+        <h1 class="center">Assignment 3: Making the grade</h1>
+    </header>
+    <div id="wrapper">
+
+        <canvas id="game" height=600 width=500 style="border:2px solid grey; margin:auto; display: block"></canvas>
+        <script>
+            let canvas = document.getElementById('game');
+            let context = canvas.getContext('2d');
+
+
+            // set some variables about the ball and the moving direction
+            let radius = 20;
+            
+
+            // draw a ball in the center
+            let x = 250;
+            let y = 300;
+            context.beginPath();
+            context.arc(x, y, radius, 0, Math.PI * 2);
+            context.fillStyle = "orange";
+            context.fill();
+            context.closePath();
+
+            let randomNumber = Math.random();
+            let direction = randomNumber < 0.5 ? 1 : -1;
+
+            let change_x = random.randint(6, 11) * direction
+            let change_y = random.randint(6, 11)
+
+
+
+
+
+
+        </script>
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <style>
+        body {
+            background: beige;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #wrapper {
+            background-color: #D5F2E8;
+            width: 940px;
+            margin: 0 auto;
+        }
+
+        header {
+            height: 100px;
+            width: 940px;
+            margin: 0 auto;
+            background-color: #8fd2d4;
+            line-height: 100px;
+        }
+
+        .center {
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+    </style>
+
+</body>
+
+</html>

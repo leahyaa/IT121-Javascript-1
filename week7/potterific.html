@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<style>
+    /*.over {
+        background-color: orange;
+    }*/
+
+    .clicked {
+        background-color: green;
+    }
+</style>
+
+<body>
+    <div id="buttons"></div>
+    <table border='1'>
+        <tr>
+            <th>name</th>
+            <th>role</th>
+            <th>house</th>
+            <th>gender</th>
+            <th>alignment</th>
+        </tr>
+    </table>
+    <button>reset</button>
+</body>
+
+<script>
+    // list of characters
+    let characters = [
+        { name: "Albus Dumbledore", role: "staff", house: "Gryffindor", gender: "m", alignment: "good" },
+        { name: "Nymphadora Tonks", role: "", house: "Hufflepuff", gender: "f", alignment: "good" },
+        { name: "Ron Weasley", role: "student", house: "Gryffindor", gender: "m", alignment: "good" },
+        { name: "Ginny Weasley", role: "student", house: "Gryffindor", gender: "f", alignment: "good" },
+        { name: "Hermione Granger", role: "student", house: "Gryffindor", gender: "f", alignment: "good" },
+        { name: "Mad-eye Moody", role: "staff", house: "", gender: "m", alignment: "good" },
+        { name: "Prof McGonagall", role: "staff", house: "Gryffindor", gender: "f", alignment: "good" },
+        { name: "Harry Potter", role: "student", house: "Gryffindor", gender: "m", alignment: "good" },
+        { name: "Draco Malfoy", role: "student", house: "Slytherin", gender: "m", alignment: "evil" },
+        { name: "Hagrid", role: "staff", house: "Gryffindor", gender: "m", alignment: "good" },
+        { name: "Luna Lovegood", role: "student", house: "Ravenclaw", gender: "f", alignment: "good" },
+        { name: "Voldemort", role: "", house: "Slytherin", gender: "m", alignment: "evil" },
+        { name: "Bellatrix Lestrange", role: "", house: "Slytherin", gender: "f", alignment: "evil" },
+        { name: "Severus Snape", role: "staff", house: "Slytherin", gender: "m", alignment: "?" }
+    ];
+
+
+
+    $(document).ready(function () {
+
+        //- add table row for each character
+        let houses = [];
+        for (let item of characters) {
+            if (!houses.includes(item.house) && item.house != "") {
+                houses.push(item.house);
+            }
+
+            let row = $("<tr></tr>");
+            row.append("<td>" + item.name + "</td>");
+            row.append("<td>" + item.role + "</td>");
+            row.append("<td>" + item.house + "</td>");
+            row.append("<td>" + item.gender + "</td>");
+            row.append("<td>" + item.alignment + "</td>");
+            $("table").append(row)
+        }
+
+        //- add a button for each 'house' value
+        for (let item of houses) {
+            $("#buttons").append("<button>" + item + "</button>")
+        }
+
+        //- set visible rows to alternating background color
+        $("tr:odd").css("background-color", "yellow")
+
+        //- add click handler to show only rows matching selected 'house'. Enable buttons to call this handler. 
+        let buttons = $('button');
+        buttons.on('click', function () {
+            //reset the table
+            $(".clicked").removeClass("clicked");
+            $(".selected").removeClass("selected");
+            let housename = $(this).text();
+            //show all the rows before any click
+            $("tr").show();
+            $("tr").css("background-color", "")
+            //check which button was clicked
+            if (housename == "reset") { // if reset was clicked, just change the background color
+                $("tr:odd").css("background-color", "yellow")
+            } else { // if any house button was clicked, do the filter and change the background color based on the filter
+                $(this).addClass("clicked"); // add class to change the clicked button background color
+                $("tr:contains(" + housename + ")").addClass("selected");
+                
+                $("tr").not(".selected").hide()
+                $("tr:first").show(); // always show the first row of the table
+                $(".selected:odd").css("background-color", "yellow")
+            }
+
+            console.log(housename)
+        });
+    });
+    
+</script>
+
+</html>
