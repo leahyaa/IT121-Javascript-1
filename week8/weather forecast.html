@@ -119,13 +119,14 @@
                         .then((data) => {
                             $("p").append("Below are the 5 days weather forecast of " + city)*/
 
-                    // get the information out from the json file
+                    // get the information from the json file
+                    // every 3 hours there is a forecast, so i+=8 to get the next day information
                     for (let i = 0; i < data.list.length; i += 8) {
                         $("ul").append("<li>" + new Date(data.list[i].dt_txt) + "</li>")
                         $("ul").append("<li>" + "Max temperature: " + kelvinToF(data.list[i].main.temp_max) + "</li>")
                         $("ul").append("<li>" + "Min temperature: " + kelvinToF(data.list[i].main.temp_min) + "</li>")
                         $("ul").append("<li>" + "Humidity: " + data.list[i].main.humidity + "</li>")
-                        $("ul").append("<li>" + "Weather description: " + data.list[i].weather[0].description + "</li>")
+                        $("ul").append("<li>" + "Weather description: " + data.list[i].weather[0].description + "<img src='http://openweathermap.org/img/w/" + data.list[i].weather[0].icon+ ".png'>" + "</li>")
                         $("ul").append("<hr>")
 
                         $("ul").append("<br>")
