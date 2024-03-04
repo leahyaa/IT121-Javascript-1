@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather forecast</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            background-image: url(USAMAP.png);
+            background-size: 100%;
+            background-attachment: fixed;
+            font-family: Arial, Helvetica, sans-serif;
+            opacity: .9;
+        }
+
+        #wrapper {
+            background-color: #D5F2E8;
+            width: 940px;
+            margin: 0 auto;
+
+        }
+
+        #weather {
+            margin-left: 30px;
+            padding-top: 15px;
+            padding-bottom: 30px;
+        }
+
+        header {
+            height: 100px;
+            width: 940px;
+            margin: 0 auto;
+            background-color: #8fd2d4;
+            line-height: 100px;
+        }
+
+        p {
+            margin-left: 30px;
+        }
+
+        .center {
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="center">American cities Weather Forecast</h1>
+    </header>
+    <div id="wrapper">
+        <div id="weather">
+            <h3>Today is: </h3>
+            <script>document.write(new Date());</script>
+            <h3>Please enter a city name</h3>
+            <form>
+                City: <input type="text" name="city">
+                <button>submit</button>
+            </form>
+            <p></p>
+            <ul>
+
+            </ul>
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+
+                const kelvinToF = (value) => {
+                    let fahrenheit = (((Number(value) - 273.15) * 9) / 5) + 32;
+                    return fahrenheit.toFixed(2);
+                }
+                let button = $('button');
+                button.on('click', function () {
+                    var city = $('input').val();
+                    // Make the API call                   
+                    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&APPID=05796dca9cf926692f084722e4a0b836", function(data, status) {
+                        if (status == "success") {
+                            console.log(data)
+
+                            //$("p").append("Below are the 5 days weather forecast of " + city)
+
+                            for (let i = 0; i < data.list.length; i += 8) {
+                                $("ul").append("<li>" + new Date(data.list[i].dt_txt) + "</li>")
+                                $("ul").append("<li>" + "Max temperature: " + kelvinToF(data.list[i].main.temp_max) + "</li>")
+                                $("ul").append("<li>" + "Min temperature: " + kelvinToF(data.list[i].main.temp_min) + "</li>")
+                                $("ul").append("<li>" + "Humidity: " + data.list[i].main.humidity + "</li>")
+                                $("ul").append("<li>" + "Weather description: " + data.list[i].weather[0].description + "</li>")
+                                $("ul").append("<hr>")
+
+                                $("ul").append("<br>")
+
+                                console.log(data.list[i].dt_txt)
+                                console.log(city)
+                            }
+                            // handle a successful request
+                        } else {
+                            console.error('There was a problem with the fetch operation:', error);
+                            // request failed
+                        }
+                    });
+
+                    /* fetch("http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&APPID=d09708f81ff13711278d283901a9ce34")
+ 
+                         .then((response) => {
+                             console.log(response);
+                             if (!response.ok) {
+                                 throw new Error('Network error');
+                             }
+                             return response.json();
+                         })
+                         .then((data) => {
+                             $("p").append("Below are the 5 days weather forecast of " + city)
+ 
+                             for (let i = 0; i < data.list.length; i += 8) {
+                                 $("ul").append("<li>" + new Date(data.list[i].dt_txt) + "</li>")
+                                 $("ul").append("<li>" + "Max temperature: " + kelvinToF(data.list[i].main.temp_max) + "</li>")
+                                 $("ul").append("<li>" + "Min temperature: " + kelvinToF(data.list[i].main.temp_min) + "</li>")
+                                 $("ul").append("<li>" + "Humidity: " + data.list[i].main.humidity + "</li>")
+                                 $("ul").append("<li>" + "Weather description: " + data.list[i].weather[0].description + "</li>")
+                                 $("ul").append("<hr>")
+ 
+                                 $("ul").append("<br>")
+ 
+                                 console.log(data.list[i].dt_txt)
+                                 console.log(city)
+                             }
+                         });
+                     /*.catch((error) => {
+                         console.error('There was a problem with the fetch operation:', error);
+                     });*/
+
+                });
+
+
+            });
+
+        </script>
+
+
+
+
+
+    </div>
+
+</body>
+
+</html>
