@@ -80,7 +80,7 @@
                 button.on('click', function () {
                     var city = $('input').val();
                     // Make the API call                   
-                    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&APPID=05796dca9cf926692f084722e4a0b836", function(data, status) {
+                   /* $.getJSON("http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&APPID=05796dca9cf926692f084722e4a0b836", function(data, status) {
                         if (status == "success") {
                             console.log(data)
 
@@ -103,10 +103,10 @@
                         } else {
                             console.error('There was a problem with the fetch operation:', error);
                             // request failed
-                        }
-                    });
+                        
+                    });}*/
 
-                    /* fetch("http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&APPID=d09708f81ff13711278d283901a9ce34")
+                    fetch("http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&APPID=05796dca9cf926692f084722e4a0b836")
  
                          .then((response) => {
                              console.log(response);
