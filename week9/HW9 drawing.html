@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The grade</title>
+
+</head>
+
+<body>
+    <header>
+        <h1 class="center">Assignment 9: Drawing</h1>
+    </header>
+    <div id="wrapper">
+
+        <canvas id="game" height=400 width=500 style="border:2px solid grey; margin:auto; display: block"></canvas>
+        <script>
+            let canvas = document.getElementById('game');
+            let context = canvas.getContext('2d');
+
+            // Set variables for the ball
+            let radius = 20;
+            let x = canvas.width / 2; // Initial x position
+            let y = canvas.height / 2; // Initial y position
+            let randomNumber = Math.random();
+            let direction = randomNumber < 0.5 ? 1 : -1;
+            let changex = Math.floor(Math.random() * radius) * direction;
+            let changey = Math.floor(Math.random() * radius)
+
+            function drawBall() {
+                context.beginPath();
+                context.arc(x, y, radius, 0, Math.PI * 2);
+                context.fillStyle = "orange";
+                context.fill();
+                context.closePath();
+            }
+
+            function updatePosition() {
+                // Clear the canvas
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                // Draw the ball
+                drawBall();
+                // Check if the ball hits the canvas edges
+                if (x + radius > canvas.width || x < radius) {
+                    changex = -changex; // Reverse the horizontal direction
+                }
+                if (y + radius > canvas.height || y < radius) {
+                    changey = -changey; // Reverse the vertical direction
+                }
+                // Update the position of the ball
+                x += changex;
+                y += changey;
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                updatePosition();
+            }
+
+            animate();
+        </script>
+
+        <br>
+        <br>
+
+        <canvas id="draw" height=400 width=938 style="border:2px solid grey; margin:auto; display: block"></canvas>
+        <script>
+            let canvas1 = document.getElementById('draw');
+            let context1 = canvas1.getContext('2d');
+            context1.moveTo(0, 100);  
+            context1.lineTo(700, 100); 
+            context1.stroke(); 
+
+            context1.beginPath();
+            context1.arc(100, 100, 40, 0, 2 * Math.PI);
+            context1.arc(300, 100, 40, 0, 2 * Math.PI);
+            context1.arc(500, 100, 40, 0, 2 * Math.PI);
+            context1.rect(700, 60, 80, 80);
+            context1.stroke();
+
+            context1.rotate(20 * Math.PI / 180);
+            context1.fillRect(150, 200, 100, 50);
+
+        </script>
+
+    </div>
+
+    <style>
+        body {
+            background: beige;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #wrapper {
+            background-color: #D5F2E8;
+            width: 940px;
+            margin: 0 auto;
+        }
+
+        header {
+            height: 100px;
+            width: 940px;
+            margin: 0 auto;
+            background-color: #8fd2d4;
+            line-height: 100px;
+        }
+
+        .center {
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+    </style>
+
+</body>
+
+</html>
